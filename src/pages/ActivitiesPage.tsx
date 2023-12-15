@@ -21,7 +21,7 @@ export const ActivitiesPage = () => {
     <div className="flex flex-col gap-4 mt-8">
       <h2 className="text-xl px-4">Activities</h2>
       <Divider />
-      <ul className="flex flex-col md:flex-row p-2 gap-2">
+      <ul className="flex flex-col md:flex-row p-2 gap-2 justify-center">
         {
           activities.map(
             activity => <ActivityCard activity={activity} key={activity.id} />

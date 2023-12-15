@@ -38,7 +38,7 @@ export const StatCard = ({ stats, month }: Props) => {
 
   return (
     <Card 
-      className="w-full" 
+      className="w-full md:max-w-md"
       isPressable
       onClick={handleNavigate}
     >

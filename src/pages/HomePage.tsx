@@ -1,39 +1,52 @@
-import { Button, Divider, Link } from "@nextui-org/react"
+import { Button, Card, CardBody, Divider, Link } from "@nextui-org/react"
+import { useAppSelector } from "../hooks"
 
-const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
-const REDIRECT_URI = import.meta.env.VITE_AUTH_REDIRECT_HOST_URI + '/exchange-token'
 
 export const HomePage = () => {
 
-  const authURL = `http://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&approval_prompt=force&scope=read,activity:read`
+  const { access_token } = useAppSelector(state => state.auth)
+  const signed = !!access_token
 
   return (
-    <main className="flex flex-col gap-4 pt-8 h-[calc(100vh-4rem)]">
+    <div className="flex flex-col gap-4 pt-8 h-[calc(100vh-4rem)]">
       <h2 className="text-xl px-4">Wellcome</h2>
       <Divider />
-      <section className="flex flex-col md:flex-row gap-4 h-full justify-center items-center">
-        <Button
-          href="/activities"
-          as={Link}
-          className="w-full md:w-auto"
-          color="primary"
-          variant="solid"
-          size="lg"
-        >
-          Activities
-        </Button>
-        <Button
-          href="/stats"
-          as={Link}
-          color="primary"
-          className="w-full md:w-auto"
-          variant="solid"
-          size="lg"
-        >
-          Statistics
-        </Button>
-      </section>
-    </main>
+      {
+        !signed
+          ? 
+          <div className="flex justify-center w-full p-2 absolute top-1/2 left-0">
+            <Card>
+              <CardBody>
+                <p className="text-center"> Please sign in to see your activities. 🏃
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+          :
+          <section className="flex flex-col md:flex-row gap-4 h-full justify-center items-center">
+            <Button
+              href="/activities"
+              as={Link}
+              className="w-full md:w-auto"
+              color="primary"
+              variant="solid"
+              size="lg"
+            >
+              Activities
+            </Button>
+            <Button
+              href="/stats"
+              as={Link}
+              color="primary"
+              className="w-full md:w-auto"
+              variant="solid"
+              size="lg"
+            >
+              Statistics
+            </Button>
+          </section>
+      }
+    </div>
 
   )
 }
