@@ -24,8 +24,8 @@ export const stravaApi = createApi({
         method: 'POST'
       })
     }),
-    getActivities: builder.query<Activity[], void>({
-      query: () => `api/v3/athlete/activities`,
+    getActivities: builder.query<Activity[], URLSearchParams | void>({
+      query: (params) => `api/v3/athlete/activities?${params}`,
     }),
   }),
 })
