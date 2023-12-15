@@ -1,11 +1,14 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { setCredentials } from './store/slices/auth'
 import { useAppDispatch } from './hooks';
 import { Auth } from './types';
+import { Layout } from './layouts/Layout';
+import { NextUIProvider } from '@nextui-org/react';
 
 export const App = () => {
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const loadAuthState = () => {
     const storedAuthState = localStorage.getItem('authState');
@@ -18,9 +21,11 @@ export const App = () => {
   loadAuthState();
 
   return (
-    <main className='container mx-auto'>
-      <Outlet />
-    </main>
+    <NextUIProvider navigate={navigate}>
+      <Layout>
+        <Outlet />
+      </Layout>
+    </NextUIProvider>
   )
 }
 
