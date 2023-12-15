@@ -48,14 +48,14 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
             <h1 className="text-2xl md:text-3xl font-bold">Vert Challenge</h1>
           </Link>
         </NavbarBrand>
-        <NavbarContent justify="end" className="hidden sm:flex">
+        <NavbarContent justify="end">
           <NavbarItem className="flex items-center gap-4">
             <ThemeSwitch />
             {
               !!athlete 
                 ? 
                 <>
-                  <h5 className="">Hi, {athlete.firstname}</h5>
+                  <h5 className="hidden sm:block">Hi, {athlete.firstname}</h5>
                   <Button 
                     color="primary" 
                     variant="ghost" 

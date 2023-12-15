@@ -9,7 +9,7 @@ export const HomePage = () => {
 
   return (
     <div className="flex flex-col gap-4 pt-8 h-[calc(100vh-4rem)]">
-      <h2 className="text-xl px-4">Wellcome</h2>
+      <h2 className="text-xl px-4">Welcome</h2>
       <Divider />
       {
         !signed
