@@ -3,12 +3,13 @@
 type KeyValuePairProps = {
   label: string
   value: string | number
+  icon?: JSX.Element
 }
 
-export const KeyValuePair = ({ label, value }: KeyValuePairProps) => {
+export const KeyValuePair = ({ label, value, icon }: KeyValuePairProps) => {
   return (
-    <span className="flex gap-2">
-      <p className="font-semibold">{label}: </p><p>{ value }</p>
+    <span className="flex gap-2 justify-between">
+      <p className="font-semibold flex gap-1 items-center">{ icon }{label}: </p><p>{ value }</p>
     </span>
   )
 }
