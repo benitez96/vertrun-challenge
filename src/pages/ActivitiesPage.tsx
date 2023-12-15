@@ -2,32 +2,33 @@ import { Divider } from "@nextui-org/react";
 import { ActivityCard } from "../components/ActivityCard";
 import { useGetActivitiesQuery } from "../store/services/stravaApi";
 import { LoadingWithBackdrop } from "../components/LoadingWithBackdrop";
-import dayjs
+import { useLocation, useSearchParams } from "react-router-dom";
+import { EmptySection } from "../components/EmptySection";
 
 export const ActivitiesPage = () => {
 
-  {/* const month = dayjs().month(); */} 
-  {/* const fromDate = dayjs().month(month).startOf("month").format("YYYY-MM-DD"); */}
-  {/* const toDate = dayjs().month(month).endOf("month").format("YYYY-MM-DD"); */}
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
-
-  const { data: activities = [], isLoading } = useGetActivitiesQuery();
+  const { data: activities = [], isLoading } = useGetActivitiesQuery(queryParams.toString());
 
   if ( isLoading ) return <LoadingWithBackdrop />
 
+  if ( activities.length === 0 ) return <EmptySection />
+
 
   return (
-    <main className="flex flex-col gap-4 mt-8">
+    <div className="flex flex-col gap-4 mt-8">
       <h2 className="text-xl px-4">Activities</h2>
       <Divider />
-      <ul className="flex flex-wrap gap-4">
+      <ul className="flex flex-col md:flex-row p-2 gap-2">
         {
           activities.map(
             activity => <ActivityCard activity={activity} key={activity.id} />
           )
         }
       </ul>
-    </main>
+    </div>
 
   )
 }

@@ -1,10 +1,21 @@
 import {Card, CardBody} from "@nextui-org/react";
 import { Activity } from "../types";
 import { KeyValuePair } from "./KeyValuePair";
+import { CiClock2 } from "react-icons/ci";
+import { RiPinDistanceFill } from "react-icons/ri";
+import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
+import { FaCalendarAlt } from "react-icons/fa";
+import { TbFileDescription } from "react-icons/tb";
+import dayjs from "dayjs";
 
 
 type Props = {
-  activity: Activity
+  activity: Pick< Activity, 'distance' 
+  | 'start_date' 
+  | 'total_elevation_gain' 
+  | 'name' 
+  | 'elapsed_time'
+>,
 }
 
 export const ActivityCard = ({ activity }: Props) => {
@@ -12,13 +23,13 @@ export const ActivityCard = ({ activity }: Props) => {
   const { name, start_date, distance, elapsed_time, total_elevation_gain } = activity
 
   return (
-    <Card>
+    <Card className="w-full sm:max-w-md">
       <CardBody className="flex gap-1 p-8">
-        <KeyValuePair label="Name" value={name} />
-        <KeyValuePair label="Date" value={start_date} />
-        <KeyValuePair label="Distance" value={distance} />
-        <KeyValuePair label="Duration" value={elapsed_time} />
-        <KeyValuePair label="Elevation Gain" value={total_elevation_gain} />
+        <KeyValuePair icon={<TbFileDescription />} label="Name" value={name} />
+        <KeyValuePair icon={<FaCalendarAlt />} label="Date" value={dayjs(start_date).format('YYYY-MM-DD')} />
+        <KeyValuePair icon={<CiClock2 />} label="Time" value={elapsed_time} />
+        <KeyValuePair icon={<RiPinDistanceFill />} label="Distance" value={distance} />
+        <KeyValuePair icon={<MdOutlineKeyboardDoubleArrowUp />} label="Elevation Gain" value={total_elevation_gain} />
       </CardBody>
     </Card>
   )
