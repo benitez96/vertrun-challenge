@@ -4,6 +4,7 @@ import { useAppDispatch } from './hooks';
 import { Auth } from './types';
 import { Layout } from './layouts/Layout';
 import { NextUIProvider } from '@nextui-org/react';
+import { useEffect } from 'react';
 
 export const App = () => {
 
@@ -18,7 +19,10 @@ export const App = () => {
     }
   };
 
-  loadAuthState();
+  useEffect(() => {
+    loadAuthState();
+  }, [])
+
 
   return (
     <NextUIProvider navigate={navigate}>

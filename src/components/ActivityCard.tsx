@@ -7,7 +7,9 @@ import { MdOutlineKeyboardDoubleArrowUp } from "react-icons/md";
 import { FaCalendarAlt } from "react-icons/fa";
 import { TbFileDescription } from "react-icons/tb";
 import dayjs from "dayjs";
+import duration from 'dayjs/plugin/duration'
 
+dayjs.extend(duration)
 
 type Props = {
   activity: Pick< Activity, 'distance' 
@@ -27,7 +29,7 @@ export const ActivityCard = ({ activity }: Props) => {
       <CardBody className="flex gap-1 p-8">
         <KeyValuePair icon={<TbFileDescription />} label="Name" value={name} />
         <KeyValuePair icon={<FaCalendarAlt />} label="Date" value={dayjs(start_date).format('YYYY-MM-DD')} />
-        <KeyValuePair icon={<CiClock2 />} label="Time" value={elapsed_time} />
+        <KeyValuePair icon={<CiClock2 />} label="Time" value={dayjs.duration(elapsed_time, 'seconds' ).asHours() + " h"} />
         <KeyValuePair icon={<RiPinDistanceFill />} label="Distance" value={distance} />
         <KeyValuePair icon={<MdOutlineKeyboardDoubleArrowUp />} label="Elevation Gain" value={total_elevation_gain} />
       </CardBody>

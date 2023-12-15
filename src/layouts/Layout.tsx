@@ -49,22 +49,22 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
           </Link>
         </NavbarBrand>
         <NavbarContent justify="end" className="hidden sm:flex">
-          {
-            !!athlete 
-              ? 
-              <NavbarItem className="flex items-center gap-4">
-                <ThemeSwitch />
-                <h5 className="">Hi, {athlete.firstname}</h5>
-                <Button 
-                  color="primary" 
-                  variant="ghost" 
-                  onClick={handleLogout}
-                >
-                  Log out
-                </Button>
-              </NavbarItem>
-              :
-              <NavbarItem>
+          <NavbarItem className="flex items-center gap-4">
+            <ThemeSwitch />
+            {
+              !!athlete 
+                ? 
+                <>
+                  <h5 className="">Hi, {athlete.firstname}</h5>
+                  <Button 
+                    color="primary" 
+                    variant="ghost" 
+                    onClick={handleLogout}
+                  >
+                    Log out
+                  </Button>
+                </>
+                :
                 <Button 
                   color="primary" 
                   onClick={handleLogin}
@@ -72,8 +72,8 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
                 >
                   Log in
                 </Button>
-              </NavbarItem>
-          }
+            }
+          </NavbarItem>
         </NavbarContent>
       </Navbar>
       <main className="container mx-auto">

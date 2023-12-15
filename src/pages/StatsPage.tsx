@@ -25,9 +25,9 @@ export const StatsPage = () => {
       <h2 className="text-xl px-4">Statistics of last 3 months</h2>
       <Divider />
       <div className="flex flex-col md:flex-row p-2 gap-2">
-        <StatCard stats={twoMonthsAgoData} month={dayjs().subtract(2, 'month').format("MMMM")} />
-        <StatCard stats={lastMonthData} month={dayjs().subtract(1, 'month').format("MMMM")} />
-        <StatCard stats={currentMonthData} month={dayjs().format("MMMM")} />
+        <StatCard stats={twoMonthsAgoData} month={dayjs().month() - 2} />
+        <StatCard stats={lastMonthData} month={dayjs().month() - 1} />
+        <StatCard stats={currentMonthData} month={dayjs().month()} />
       </div>
 
     </div>
