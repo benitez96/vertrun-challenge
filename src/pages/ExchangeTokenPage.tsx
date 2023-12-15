@@ -3,6 +3,7 @@ import { Navigate, useLocation, useParams, useSearchParams } from "react-router-
 import { useGetTokenMutation } from "../store/services/stravaApi";
 import { useAppDispatch } from "../hooks";
 import { setCredentials } from "../store/slices/auth";
+import { LoadingWithBackdrop } from "../components/LoadingWithBackdrop";
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET
@@ -37,7 +38,7 @@ export const ExchangeTokenPage = () => {
     login()
   }, [])
 
-  if (isLoading) return <div>Loading...</div>
-  if (isSuccess) return <Navigate to="/activities" />
+  if ( isLoading ) return <LoadingWithBackdrop />
+  if ( isSuccess ) return <Navigate to="/activities" />
 
 }
