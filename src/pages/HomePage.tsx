@@ -4,8 +4,7 @@ const REDIRECT_URI = import.meta.env.VITE_AUTH_REDIRECT_HOST_URI + '/exchange-to
 
 export const HomePage = () => {
 
-  const authURL = `http://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&approval_prompt=force&scope=read`
-
+  const authURL = `http://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&approval_prompt=force&scope=read,activity:read`
 
   return (
     <>

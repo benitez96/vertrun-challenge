@@ -1,9 +1,11 @@
-import { useAppSelector } from "../hooks";
+import { useGetActivitiesQuery } from "../store/services/stravaApi";
 
 export const ActivitiesPage = () => {
 
 
-  const athlete = useAppSelector(state => state.auth.athlete)
+  const { data: activities = [], isLoading } = useGetActivitiesQuery();
+
+  if ( isLoading ) return <h1>Loading...</h1>
 
 
   return (
@@ -11,7 +13,7 @@ export const ActivitiesPage = () => {
       <h1>Activities Page</h1>
       <pre>
         { 
-          JSON.stringify(athlete, null, 2)
+          JSON.stringify(activities, null, 2)
         }
       </pre>
     </>
