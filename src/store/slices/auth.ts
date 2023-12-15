@@ -1,20 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import type { Auth } from '../../types'
 
-// Define a type for the slice state
-type AuthState = {
-  client_id: string | undefined
-  client_secret: string | undefined
-  code: string | undefined
-  grant_type: string | undefined
-}
 
-// Define the initial state using that type
-const initialState: AuthState = {
-  client_id:  undefined,
-  client_secret:  undefined,
-  code: undefined,
-  grant_type: undefined,
+const initialState: Auth = {
+  athlete: undefined,
+  expires_at: undefined,
+  expires_in: undefined,
+  refresh_token: undefined,
+  token_type: undefined,
+  access_token: undefined,
 }
 
 export const authSlice = createSlice({
@@ -24,13 +19,11 @@ export const authSlice = createSlice({
     logout: (state) => {
       state = initialState
     },
-    login: (state, action: PayloadAction<AuthState>) => {
-      state = action.payload
-    }
+    setCredentials: (_, action: PayloadAction<Auth>) => action.payload
   },
 })
 
-export const { logout, login } = authSlice.actions
+export const { logout, setCredentials } = authSlice.actions
 
 export default authSlice.reducer
 

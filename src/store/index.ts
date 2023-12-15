@@ -19,3 +19,8 @@ export type AppDispatch = typeof store.dispatch
 export default store
 
 setupListeners(store.dispatch)
+
+store.subscribe(() => {
+  const authState = store.getState().auth;
+  localStorage.setItem('authState', JSON.stringify(authState));
+});

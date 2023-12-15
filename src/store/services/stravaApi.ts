@@ -1,18 +1,33 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { Activity } from '../../types'
+import type { Activity, Auth } from '../../types'
+import { RootState } from '..'
 
 export const stravaApi = createApi({
   reducerPath: 'stravaApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'https://www.strava.com/api/v3/',
-    prepareHeaders: ( headers ) =>
-      headers.set('Authorization', `Bearer ${import.meta.env.VITE_STRAVA_ACCESS_TOKEN}`)
+    baseUrl: 'https://www.strava.com/',
+    prepareHeaders: (headers, { getState }) => {
+      const tokenType = (getState() as RootState).auth.token_type
+      const token = (getState() as RootState).auth.access_token
+
+      if (token) {
+        headers.set('authorization', `${tokenType} ${token}`)
+      }
+
+      return headers
+    },
   }),
   endpoints: (builder) => ({
-    getActivities: builder.query({
-      query: () => `athlete/activities`,
+    getToken: builder.mutation<Auth, URLSearchParams>({
+      query: (params: URLSearchParams) => ({
+        url: `oauth/token?${params}`,
+        method: 'POST'
+      })
+    }),
+    getActivities: builder.query<Activity[], void>({
+      query: () => `api/v3/athlete/activities`,
     }),
   }),
 })
 
-export const { useGetActivitiesQuery } = stravaApi
+export const { useGetActivitiesQuery, useGetTokenMutation } = stravaApi
